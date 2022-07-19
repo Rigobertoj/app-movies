@@ -105,3 +105,6 @@ dist
 
 #here API_KEY
 src/API_KEY.js
+
+#modelos de inspiracion para la app
+.design-app
