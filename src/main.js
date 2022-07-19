@@ -1,10 +1,18 @@
-const API = 'https://api.temoviedb.org/3/trending/movie/day'
+const api = axios.create({
+    baseURL: 'https://api.themoviedb.org/3/',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+    },
+    params: {
+        'api_key': API_KEY,
+    },
+});
+
 
 const getTrendingMoviePreview = async () => {
-    const response = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`);
-    const data = await response.json()
-    const content = document.getElementById('trendingPreview-movieList')
+    const { data } = await api('trending/movie/day')
     const Movies = data.results;
+    const content = document.getElementById('trendingPreview-movieList')
     const movies = Movies.slice(0, 7)
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
@@ -21,11 +29,10 @@ const getTrendingMoviePreview = async () => {
 } 
 
 const getCategoriesPreview = async () => {
-    const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`)
-    const data = await response.json()
-    const content = document.getElementById('categoriesPreview-list')
+    const { data } = await api('genre/movie/list')
     const categories = data.genres
-    const categoriesPreview = categories.forEach(category => {
+    const content = document.getElementById('categoriesPreview-list')
+    categories.forEach(category => {
         const categoryContainer = document.createElement('div')
         categoryContainer.classList.add('category-container')
 
