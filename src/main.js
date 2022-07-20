@@ -30,7 +30,8 @@ const getTrendingMoviePreview = async () => {
 
 const getCategoriesPreview = async () => {
     const { data } = await api('genre/movie/list')
-    const categories = data.genres
+    let dataCategories = data.genres
+    const categories = dataCategories.slice(0, 10)
     const content = document.getElementById('categoriesPreview-list')
     categories.forEach(category => {
         const categoryContainer = document.createElement('div')
@@ -45,5 +46,3 @@ const getCategoriesPreview = async () => {
         content.appendChild(categoryContainer)
     });
 }
-
-
