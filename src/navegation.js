@@ -1,3 +1,6 @@
+
+
+
 searchFormBtn.addEventListener('click', () => {
     location.hash = '#search='
 })
@@ -8,6 +11,7 @@ trendingBtn.addEventListener('click', () => {
 
 arrowBtn.addEventListener('click', () => {
     location.hash = '#home'
+    homepage()
 });
 
 const navegation = () => {
@@ -23,8 +27,6 @@ const navegation = () => {
     } else{
         homepage()
     }
-    
-
     location.hash 
 }
 
@@ -51,7 +53,6 @@ function homepage(){
 
     getTrendingMoviePreview()
     getCategoriesPreview()
-
 }
 
 function categoriesPage(){
@@ -69,6 +70,10 @@ function categoriesPage(){
     categoriesPreviewSection.classList.add('inactive')
     genericSection.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
+
+    const [, categoryData] = location.hash.split('=')
+    const [categoryId, categoryName] = categoryData.split('-')
+    getMoviesByCategory(categoryId)
 }
 
 function moviesDetailsPage(){
@@ -112,13 +117,15 @@ function trendsPage() {
     arrowBtn.classList.remove('inactive')
     headerTitle.classList.remove('header-arrow--white')
     headerTitle.classList.add('inactive')
-    headerCategoryTitle.classList.add('inactive')
+    headerCategoryTitle.classList.remove('inactive')
     searchForm.classList.add('inactive')
 
     trendingPreviewSection.classList.add('inactive')
     categoriesPreviewSection.classList.add('inactive')
     genericSection.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
+
+    getTrendsMovies()
 }
 
 navegation()
